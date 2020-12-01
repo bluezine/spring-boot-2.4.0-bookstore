@@ -1,0 +1,13 @@
+debug: false
+spring:
+   datasource:
+      name: "webapp"
+      url: "jdbc:mariadb://-/test?characterEncoding=UTF-8"
+      username: "bookstore"
+      password: "1"
+      driver-class-name: "org.mariadb.jdbc.Driver"
+   mvc:
+      view:
+         prefix: "/WEB-INF/jsp/"
+         suffix: ".jsp"
+      static-path-pattern: "/resources/**"
