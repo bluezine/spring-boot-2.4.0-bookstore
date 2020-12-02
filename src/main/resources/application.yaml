@@ -2,7 +2,7 @@ debug: false
 spring:
    datasource:
       name: "webapp"
-      url: "jdbc:mariadb://10.63.5.27:13306/bookstore?characterEncoding=UTF-8"
+      url: "jdbc:mariadb://-/bookstore?characterEncoding=UTF-8"
       username: "bookstore"
       password: "1"
       driver-class-name: "org.mariadb.jdbc.Driver"
