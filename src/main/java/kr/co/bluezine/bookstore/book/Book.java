@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import kr.co.bluezine.bookstore.sql.SuperEntity;
+
 /**
  * Book Entity
  * 
@@ -30,7 +32,7 @@ COLLATE='utf8mb4_general_ci';
  *         </pre>
  */
 @Entity
-public class Book {
+public class Book extends SuperEntity {
 
     /**
      * Identify Key (PK)
