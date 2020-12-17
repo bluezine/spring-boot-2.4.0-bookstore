@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import kr.co.bluezine.bookstore.sql.SuperEntity;
+
 /**
  * Book Entity
  * 
@@ -33,7 +35,7 @@ ENGINE=InnoDB
  *         </pre>
  */
 @Entity
-public class Book {
+public class Book extends SuperEntity {
 
     /**
      * Identify Key (PK)
