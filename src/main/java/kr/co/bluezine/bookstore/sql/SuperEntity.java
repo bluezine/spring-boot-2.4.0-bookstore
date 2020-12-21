@@ -1,5 +1,8 @@
 package kr.co.bluezine.bookstore.sql;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Super Entity
  * 
@@ -7,6 +10,8 @@ package kr.co.bluezine.bookstore.sql;
  *
  */
 public class SuperEntity {
+
+    public static final Map<String, SearchParam> SEARCH = new HashMap<>();
 
     // Cast Class
 }
