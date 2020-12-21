@@ -1,5 +1,6 @@
 package kr.co.bluezine.bookstore.book;
 
+import java.sql.Types;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import kr.co.bluezine.bookstore.sql.SearchParam;
 import kr.co.bluezine.bookstore.sql.SuperEntity;
 
 /**
@@ -33,6 +35,16 @@ COLLATE='utf8mb4_general_ci';
  */
 @Entity
 public class Book extends SuperEntity {
+    static {
+	SEARCH.put("id", new SearchParam("id", Types.NUMERIC));
+	SEARCH.put("title", new SearchParam("title", Types.VARCHAR));
+	SEARCH.put("status", new SearchParam("status", Types.NUMERIC));
+	SEARCH.put("authorName", new SearchParam("auth_name", Types.VARCHAR));
+	SEARCH.put("pubCompany", new SearchParam("pub_cmpy", Types.VARCHAR));
+	SEARCH.put("pubYear", new SearchParam("pub_year", Types.NUMERIC));
+	SEARCH.put("pubDate", new SearchParam("pubDate", Types.DATE));
+	SEARCH.put("isbn", new SearchParam("isbn", Types.VARCHAR));
+    }
 
     /**
      * Identify Key (PK)
@@ -69,7 +81,7 @@ public class Book extends SuperEntity {
      * Publish year
      */
     @Column(name = "pub_year")
-    private String pubYear;
+    private int pubYear;
 
     /**
      * Publish date
@@ -123,11 +135,11 @@ public class Book extends SuperEntity {
 	this.pubCompany = pubCompany;
     }
 
-    public String getPubYear() {
+    public int getPubYear() {
 	return pubYear;
     }
 
-    public void setPubYear(String pubYear) {
+    public void setPubYear(int pubYear) {
 	this.pubYear = pubYear;
     }
 
