@@ -27,10 +27,13 @@ CREATE TABLE `book` (
 	`pub_year` INT(4) NOT NULL,
 	`pub_date` DATETIME NOT NULL,
 	`isbn` VARCHAR(13) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`desc` LONGTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
 	PRIMARY KEY (`id`) USING BTREE
 )
 COMMENT='book item'
-COLLATE='utf8mb4_general_ci';
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+;
  *         </pre>
  */
 @Entity
@@ -95,6 +98,12 @@ public class Book extends SuperEntity {
     @Column(name = "isbn")
     private String isbn;
 
+    /**
+     * Description
+     */
+    @Column(name = "desc")
+    private String desc;
+
     public Long getId() {
 	return id;
     }
@@ -157,5 +166,13 @@ public class Book extends SuperEntity {
 
     public void setIsbn(String isbn) {
 	this.isbn = isbn;
+    }
+
+    public String getDesc() {
+	return desc;
+    }
+
+    public void setDesc(String desc) {
+	this.desc = desc;
     }
 }
