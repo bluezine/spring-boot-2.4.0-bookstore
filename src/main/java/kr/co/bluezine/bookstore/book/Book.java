@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import kr.co.bluezine.bookstore.sql.SearchParam;
+import kr.co.bluezine.bookstore.sql.SearchType;
 import kr.co.bluezine.bookstore.sql.SuperEntity;
 
 /**
@@ -40,13 +41,13 @@ ENGINE=InnoDB
 public class Book extends SuperEntity {
     static {
 	SEARCH.put("id", new SearchParam("id", Types.NUMERIC));
-	SEARCH.put("title", new SearchParam("title", Types.VARCHAR));
+	SEARCH.put("title", new SearchParam("title", Types.VARCHAR, SearchType.SEARCH_LIKE));
 	SEARCH.put("status", new SearchParam("status", Types.NUMERIC));
-	SEARCH.put("authorName", new SearchParam("auth_name", Types.VARCHAR));
-	SEARCH.put("pubCompany", new SearchParam("pub_cmpy", Types.VARCHAR));
+	SEARCH.put("authorName", new SearchParam("auth_name", Types.VARCHAR, SearchType.SEARCH_LIKE));
+	SEARCH.put("pubCompany", new SearchParam("pub_cmpy", Types.VARCHAR, SearchType.SEARCH_LIKE));
 	SEARCH.put("pubYear", new SearchParam("pub_year", Types.NUMERIC));
 	SEARCH.put("pubDate", new SearchParam("pubDate", Types.DATE));
-	SEARCH.put("isbn", new SearchParam("isbn", Types.VARCHAR));
+	SEARCH.put("isbn", new SearchParam("isbn", Types.VARCHAR, SearchType.SEARCH_LIKE));
     }
 
     /**
