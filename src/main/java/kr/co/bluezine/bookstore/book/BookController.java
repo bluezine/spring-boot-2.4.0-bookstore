@@ -3,9 +3,6 @@ package kr.co.bluezine.bookstore.book;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.ColumnMapRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.bluezine.bookstore.sql.PageEntity;
-import kr.co.bluezine.bookstore.sql.QueryMake;
 
 /**
  * Book Controller
@@ -31,11 +27,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     /**
-     * Get book list
+     * Get Book List
      * 
      * @param page
      * @param count
@@ -47,23 +40,11 @@ public class BookController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public PageEntity list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int count,
 	    @RequestParam(defaultValue = "") String search) throws NumberFormatException, SQLException {
-	QueryMake make = new QueryMake();
-	make.select("*");
-	make.from("book b");
-	make.appendSearch(search, Book.SEARCH);
-	make.order("id");
-
-	PageEntity entity = new PageEntity();
-	entity.setTotalCount((Long) jdbcTemplate
-		.query(make.countQuery(), make.preparedStatementSetter, new ColumnMapRowMapper()).get(0).get("cnt"));
-	make.resetIndex();
-	entity.setArrays(jdbcTemplate.query(make.pageQuery(page, count), make.preparedStatementSetter,
-		new BeanPropertyRowMapper<Book>(Book.class)));
-	return entity;
+	return bookService.list(page, count, search);
     }
 
     /**
-     * Read book
+     * Read Book
      * 
      * @param id
      * @return
@@ -74,7 +55,7 @@ public class BookController {
     }
 
     /**
-     * Insert book
+     * Insert Book
      * 
      * @param item
      * @return
@@ -85,7 +66,7 @@ public class BookController {
     }
 
     /**
-     * Update book
+     * Update Book
      * 
      * @param item
      * @return
