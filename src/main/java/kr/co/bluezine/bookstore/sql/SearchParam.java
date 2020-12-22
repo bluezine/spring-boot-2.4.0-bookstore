@@ -9,17 +9,17 @@ package kr.co.bluezine.bookstore.sql;
 public class SearchParam {
 
     /**
-     * Column name
+     * Column Name
      */
     private String column;
 
     /**
-     * Column type
+     * Column Type
      */
     private int type;
 
     /**
-     * Column search type
+     * Column Search Type
      */
     private int searchType;
 

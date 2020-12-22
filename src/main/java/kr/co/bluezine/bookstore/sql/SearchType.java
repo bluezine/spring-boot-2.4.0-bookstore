@@ -1,7 +1,7 @@
 package kr.co.bluezine.bookstore.sql;
 
 /**
- * Search type
+ * Search Type
  * 
  * @author Kisig Ian Seo
  *
@@ -9,12 +9,12 @@ package kr.co.bluezine.bookstore.sql;
 public class SearchType {
 
     /**
-     * Exact search
+     * Exact Search
      */
     public static final int SEARCH_EXACT = 1;
 
     /**
-     * Like search
+     * Like Search
      */
     public static final int SEARCH_LIKE = 2;
 }

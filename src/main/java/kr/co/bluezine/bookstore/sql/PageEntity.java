@@ -9,7 +9,14 @@ import java.util.List;
  *
  */
 public class PageEntity {
+    /**
+     * Total Count
+     */
     private long totalCount;
+
+    /**
+     * Total Array
+     */
     private List<? extends SuperEntity> arrays;
 
     public long getTotalCount() {

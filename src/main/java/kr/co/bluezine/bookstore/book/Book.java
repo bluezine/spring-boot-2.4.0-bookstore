@@ -58,43 +58,43 @@ public class Book extends SuperEntity {
     private Long id;
 
     /**
-     * Book title
+     * Book Title
      */
     @Column(name = "title")
     private String title;
 
     /**
-     * Book status
+     * Book Status
      */
     @Column(name = "status")
     private int status;
 
     /**
-     * Author name
+     * Author Name
      */
     @Column(name = "auth_name")
     private String authorName;
 
     /**
-     * Publish company name
+     * Publish Company Name
      */
     @Column(name = "pub_cmpy")
     private String pubCompany;
 
     /**
-     * Publish year
+     * Publish Year
      */
     @Column(name = "pub_year")
     private int pubYear;
 
     /**
-     * Publish date
+     * Publish Date
      */
     @Column(name = "pub_date")
     private Date pubDate;
 
     /**
-     * ISBN code
+     * ISBN Code
      */
     @Column(name = "isbn")
     private String isbn;
