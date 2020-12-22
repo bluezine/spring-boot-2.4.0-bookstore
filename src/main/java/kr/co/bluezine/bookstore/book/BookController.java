@@ -39,8 +39,9 @@ public class BookController {
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public PageEntity list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int count,
-	    @RequestParam(defaultValue = "") String search) throws NumberFormatException, SQLException {
-	return bookService.list(page, count, search);
+	    @RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "id") String sort)
+	    throws NumberFormatException, SQLException {
+	return bookService.list(page, count, search, sort);
     }
 
     /**

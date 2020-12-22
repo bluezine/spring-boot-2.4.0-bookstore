@@ -67,12 +67,13 @@ public class BookService {
      * @throws NumberFormatException
      * @throws SQLException
      */
-    public PageEntity list(int page, int count, String search) throws NumberFormatException, SQLException {
+    public PageEntity list(int page, int count, String search, String order)
+	    throws NumberFormatException, SQLException {
 	QueryMake make = new QueryMake();
-	make.select("*");
+	make.select("b.id, b.title, b.status, b.auth_name");
 	make.from("book b");
 	make.appendSearch(search, Book.SEARCH);
-	make.order("id");
+	make.order(order);
 
 	PageEntity entity = new PageEntity();
 	entity.setTotalCount((Long) jdbcTemplate
