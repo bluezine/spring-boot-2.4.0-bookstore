@@ -3,8 +3,13 @@ package kr.co.bluezine.bookstore.category;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import kr.co.bluezine.bookstore.sql.PageEntity;
+import kr.co.bluezine.bookstore.sql.QueryMake;
 
 /**
  * Category Service
@@ -125,5 +130,50 @@ public class CategoryService {
 	downItem.setSort(sort);
 	save(upItem);
 	save(downItem);
+    }
+
+    /**
+     * Return Root List
+     * 
+     * @return
+     */
+    public PageEntity rootList() {
+	QueryMake make = new QueryMake();
+	make.select("i.id, i.pid, i.title, i.status, i.isleaf as leaf, i.sort");
+	make.from("category i");
+	make.where("i.pid is null");
+	make.where("i.status = ?", CategoryCode.CATEGORY_STATUS_NORMAL);
+	make.order("sort");
+
+	PageEntity entity = new PageEntity();
+	entity.setTotalCount((Long) jdbcTemplate
+		.query(make.countQuery(), make.preparedStatementSetter, new ColumnMapRowMapper()).get(0).get("cnt"));
+	make.resetIndex();
+	entity.setArrays(jdbcTemplate.query(make.query(), make.preparedStatementSetter,
+		new BeanPropertyRowMapper<Category>(Category.class)));
+	return entity;
+    }
+
+    /**
+     * Return Children List
+     * 
+     * @param id
+     * @return
+     */
+    public PageEntity childrenList(Long id) {
+	QueryMake make = new QueryMake();
+	make.select("i.id, i.pid, i.title, i.status, i.isleaf as leaf, i.sort");
+	make.from("category i");
+	make.where("i.pid = ?", id);
+	make.where("i.status = ?", CategoryCode.CATEGORY_STATUS_NORMAL);
+	make.order("sort");
+
+	PageEntity entity = new PageEntity();
+	entity.setTotalCount((Long) jdbcTemplate
+		.query(make.countQuery(), make.preparedStatementSetter, new ColumnMapRowMapper()).get(0).get("cnt"));
+	make.resetIndex();
+	entity.setArrays(jdbcTemplate.query(make.query(), make.preparedStatementSetter,
+		new BeanPropertyRowMapper<Category>(Category.class)));
+	return entity;
     }
 }

@@ -225,6 +225,10 @@ public class QueryMake {
 		for (Object obj : param) {
 		    if (obj instanceof String) {
 			ps.setNString(index++, "%" + obj.toString() + "%");
+		    } else if (obj instanceof Long) {
+			ps.setLong(index++, (Long) obj);
+		    } else if (obj instanceof Integer) {
+			ps.setInt(index++, (Integer) obj);
 		    }
 		}
 	    }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import kr.co.bluezine.bookstore.sql.PageEntity;
+
 /**
  * Category Controller
  * 
@@ -25,6 +27,28 @@ public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
+
+    /**
+     * Get Category List
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public PageEntity list() {
+	return categoryService.rootList();
+    }
+
+    /**
+     * Get Category List
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "list/{id}", method = RequestMethod.GET)
+    public PageEntity list(@PathVariable Long id) {
+	return categoryService.childrenList(id);
+    }
 
     /**
      * Read Category
@@ -97,6 +121,5 @@ public class CategoryController {
 	    result.put("result", false);
 	}
 	return result;
-
     }
 }
