@@ -1,5 +1,7 @@
 package kr.co.bluezine.bookstore.category;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,8 +22,8 @@ CREATE TABLE `category` (
 	`rid` INT(11) NULL DEFAULT NULL,
 	`title` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`status` INT(6) NOT NULL DEFAULT '0',
-	`rgst_date` DATETIME NOT NULL DEFAULT sysdate(),
-	`updt_date` DATETIME NOT NULL DEFAULT sysdate(),
+	`rgst_date` DATETIME NULL DEFAULT sysdate(),
+	`updt_date` DATETIME NULL DEFAULT sysdate(),
 	`isleaf` INT(1) NULL DEFAULT NULL,
 	`sort` INT(11) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`) USING BTREE,
@@ -67,6 +69,18 @@ public class Category extends SuperEntity {
      */
     @Column(name = "status")
     private int status;
+
+    /**
+     * Category Rgst Date
+     */
+    @Column(name = "rgst_date")
+    private Date rgstDate;
+
+    /**
+     * Category Update Date
+     */
+    @Column(name = "updt_date")
+    private Date updateDate;
 
     /**
      * Category Is Leaf
@@ -118,6 +132,22 @@ public class Category extends SuperEntity {
 
     public void setStatus(int status) {
 	this.status = status;
+    }
+
+    public Date getRgstDate() {
+	return rgstDate;
+    }
+
+    public void setRgstDate(Date rgstDate) {
+	this.rgstDate = rgstDate;
+    }
+
+    public Date getUpdateDate() {
+	return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+	this.updateDate = updateDate;
     }
 
     public boolean isLeaf() {
