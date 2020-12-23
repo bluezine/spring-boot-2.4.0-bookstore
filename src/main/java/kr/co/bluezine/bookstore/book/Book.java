@@ -37,7 +37,7 @@ ENGINE=InnoDB
 ;
  *         </pre>
  */
-@Entity
+@Entity(name = "book")
 public class Book extends SuperEntity {
     static {
 	SEARCH.put("id", new SearchParam("id", Types.NUMERIC));
