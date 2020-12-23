@@ -17,7 +17,7 @@ import kr.co.bluezine.bookstore.sql.QueryMake;
  * @author Kisig Ian Seo
  *
  */
-@Service
+@Service(value = "bookService")
 public class BookService {
 
     @Autowired
