@@ -1,5 +1,9 @@
 package kr.co.bluezine.bookstore.category;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -75,5 +79,24 @@ public class CategoryController {
     @RequestMapping(value = "restore", method = RequestMethod.POST)
     public Category recover(@RequestBody Category item) {
 	return categoryService.restore(item);
+    }
+
+    /**
+     * Swap Category
+     * 
+     * @param items
+     * @return
+     */
+    @RequestMapping(value = "swap", method = RequestMethod.POST)
+    public Map<String, Boolean> swap(@RequestBody List<Long> ids) {
+	Map<String, Boolean> result = new HashMap<>();
+	try {
+	    categoryService.swap(ids.get(0), ids.get(1));
+	    result.put("result", true);
+	} catch (Exception ex) {
+	    result.put("result", false);
+	}
+	return result;
+
     }
 }

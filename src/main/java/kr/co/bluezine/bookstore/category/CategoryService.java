@@ -1,5 +1,7 @@
 package kr.co.bluezine.bookstore.category;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,7 @@ public class CategoryService {
      * @return
      */
     public Category save(Category item) {
+	item.setUpdateDate(new Date());
 	categoryRepository.save(item);
 	return item;
     }
@@ -57,18 +60,19 @@ public class CategoryService {
      * @return
      */
     public Category create(Category item) {
-	categoryRepository.save(item);
+	save(item);
 	if (item.getPid() == null) {
 	    item.setRootId(item.getId());
 	} else {
 	    Category parentItem = categoryRepository.findById(item.getPid()).get();
 	    item.setRootId(parentItem.getRootId());
 	    parentItem.setLeaf(false);
-	    categoryRepository.save(parentItem);
+	    save(parentItem);
 	}
 	item.setLeaf(true);
 	item.setSort(item.getId());
-	categoryRepository.save(item);
+	item.setRgstDate(new Date());
+	save(item);
 	return item;
     }
 
@@ -79,7 +83,9 @@ public class CategoryService {
      * @return
      */
     public Category delete(Category item) {
+	item.setUpdateDate(new Date());
 	item.setStatus(CategoryCode.CATEGORY_STATUS_DELETE);
+	save(item);
 	return item;
     }
 
@@ -90,6 +96,7 @@ public class CategoryService {
      * @return
      */
     public Category restore(Category item) {
+	item.setUpdateDate(new Date());
 	item.setStatus(CategoryCode.CATEGORY_STATUS_NORMAL);
 	return item;
     }
@@ -101,5 +108,22 @@ public class CategoryService {
      */
     public void remove(Category item) {
 	categoryRepository.delete(item);
+    }
+
+    /**
+     * Swap Category
+     * 
+     * @param upItem
+     * @param downItem
+     */
+    public void swap(Long upItemId, Long downItemId) {
+	Category upItem = categoryRepository.findById(upItemId).get();
+	Category downItem = categoryRepository.findById(downItemId).get();
+
+	Long sort = upItem.getSort();
+	upItem.setSort(downItem.getSort());
+	downItem.setSort(sort);
+	save(upItem);
+	save(downItem);
     }
 }
