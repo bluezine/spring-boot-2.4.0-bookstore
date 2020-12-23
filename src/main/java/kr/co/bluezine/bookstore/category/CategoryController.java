@@ -1,10 +1,12 @@
 package kr.co.bluezine.bookstore.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Category Controller
@@ -12,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Kisig Ian Seo
  *
  */
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST })
+@RestController
+@RequestMapping(value = "category")
 public class CategoryController {
+
     @Autowired
     private CategoryService categoryService;
 
@@ -35,7 +41,7 @@ public class CategoryController {
      */
     @RequestMapping(value = "insert", method = RequestMethod.POST)
     public Category insert(@RequestBody Category item) {
-	return categoryService.save(item);
+	return categoryService.create(item);
     }
 
     /**

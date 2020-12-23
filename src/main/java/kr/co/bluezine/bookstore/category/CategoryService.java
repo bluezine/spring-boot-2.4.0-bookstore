@@ -2,6 +2,7 @@ package kr.co.bluezine.bookstore.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 /**
  * Category Service
@@ -9,7 +10,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author Kisig Ian Seo
  *
  */
+@Service(value = "categoryService")
 public class CategoryService {
+
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -43,6 +46,27 @@ public class CategoryService {
      * @return
      */
     public Category save(Category item) {
+	categoryRepository.save(item);
+	return item;
+    }
+
+    /**
+     * Create Category Item
+     * 
+     * @param item
+     * @return
+     */
+    public Category create(Category item) {
+	categoryRepository.save(item);
+	if (item.getPid() == null) {
+	    item.setRootId(item.getId());
+	} else {
+	    Category parentItem = categoryRepository.findById(item.getPid()).get();
+	    item.setRootId(parentItem.getRootId());
+	    parentItem.setLeaf(false);
+	    categoryRepository.save(parentItem);
+	}
+	item.setLeaf(true);
 	categoryRepository.save(item);
 	return item;
     }
