@@ -67,6 +67,7 @@ public class CategoryService {
 	    categoryRepository.save(parentItem);
 	}
 	item.setLeaf(true);
+	item.setSort(item.getId());
 	categoryRepository.save(item);
 	return item;
     }

@@ -23,6 +23,7 @@ CREATE TABLE `category` (
 	`rgst_date` DATETIME NOT NULL DEFAULT sysdate(),
 	`updt_date` DATETIME NOT NULL DEFAULT sysdate(),
 	`isleaf` INT(1) NULL DEFAULT NULL,
+	`sort` INT(11) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `KM_PID_KM_ID` (`pid`) USING BTREE,
 	CONSTRAINT `KM_PID_KM_ID` FOREIGN KEY (`pid`) REFERENCES `bookstore`.`category` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
@@ -73,6 +74,12 @@ public class Category extends SuperEntity {
     @Column(name = "isleaf")
     private boolean leaf;
 
+    /**
+     * Category Sort
+     */
+    @Column(name = "sort")
+    private Long sort;
+
     public Long getId() {
 	return id;
     }
@@ -119,5 +126,13 @@ public class Category extends SuperEntity {
 
     public void setLeaf(boolean leaf) {
 	this.leaf = leaf;
+    }
+
+    public Long getSort() {
+	return sort;
+    }
+
+    public void setSort(Long sort) {
+	this.sort = sort;
     }
 }
