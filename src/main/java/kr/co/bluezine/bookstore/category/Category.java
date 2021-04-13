@@ -20,7 +20,7 @@ CREATE TABLE `category` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`pid` INT(11) NULL DEFAULT NULL,
 	`rid` INT(11) NULL DEFAULT NULL,
-	`title` VARCHAR(100) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`title` VARCHAR(100) NOT NULL,
 	`status` INT(6) NOT NULL DEFAULT '0',
 	`rgst_date` DATETIME NULL DEFAULT sysdate(),
 	`updt_date` DATETIME NULL DEFAULT sysdate(),
@@ -29,140 +29,136 @@ CREATE TABLE `category` (
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `KM_PID_KM_ID` (`pid`) USING BTREE,
 	CONSTRAINT `KM_PID_KM_ID` FOREIGN KEY (`pid`) REFERENCES `bookstore`.`category` (`id`) ON UPDATE CASCADE ON DELETE CASCADE
-)
-COMMENT='category'
-COLLATE='utf8mb4_general_ci'
-ENGINE=InnoDB
-;
+);
  *         </pre>
  */
 @Entity(name = "category")
 public class Category extends SuperEntity {
 
-    /**
-     * Identify Key (PK)
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	/**
+	 * Identify Key (PK)
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    /**
-     * Category Parent Id
-     */
-    @Column(name = "pid")
-    private Long pid;
+	/**
+	 * Category Parent Id
+	 */
+	@Column(name = "pid")
+	private Long pid;
 
-    /**
-     * Category Root Id
-     */
-    @Column(name = "rid")
-    private Long rootId;
+	/**
+	 * Category Root Id
+	 */
+	@Column(name = "rid")
+	private Long rootId;
 
-    /**
-     * Category Title
-     */
-    @Column(name = "title")
-    private String title;
+	/**
+	 * Category Title
+	 */
+	@Column(name = "title")
+	private String title;
 
-    /**
-     * Category Status
-     */
-    @Column(name = "status")
-    private int status;
+	/**
+	 * Category Status
+	 */
+	@Column(name = "status")
+	private int status;
 
-    /**
-     * Category Rgst Date
-     */
-    @Column(name = "rgst_date")
-    private Date rgstDate;
+	/**
+	 * Category Rgst Date
+	 */
+	@Column(name = "rgst_date")
+	private Date rgstDate;
 
-    /**
-     * Category Update Date
-     */
-    @Column(name = "updt_date")
-    private Date updateDate;
+	/**
+	 * Category Update Date
+	 */
+	@Column(name = "updt_date")
+	private Date updateDate;
 
-    /**
-     * Category Is Leaf
-     */
-    @Column(name = "isleaf")
-    private boolean leaf;
+	/**
+	 * Category Is Leaf
+	 */
+	@Column(name = "isleaf")
+	private boolean leaf;
 
-    /**
-     * Category Sort
-     */
-    @Column(name = "sort")
-    private Long sort;
+	/**
+	 * Category Sort
+	 */
+	@Column(name = "sort")
+	private Long sort;
 
-    public Long getId() {
-	return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-	this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getPid() {
-	return pid;
-    }
+	public Long getPid() {
+		return pid;
+	}
 
-    public void setPid(Long pid) {
-	this.pid = pid;
-    }
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
 
-    public Long getRootId() {
-	return rootId;
-    }
+	public Long getRootId() {
+		return rootId;
+	}
 
-    public void setRootId(Long rootId) {
-	this.rootId = rootId;
-    }
+	public void setRootId(Long rootId) {
+		this.rootId = rootId;
+	}
 
-    public String getTitle() {
-	return title;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setTitle(String title) {
-	this.title = title;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public int getStatus() {
-	return status;
-    }
+	public int getStatus() {
+		return status;
+	}
 
-    public void setStatus(int status) {
-	this.status = status;
-    }
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
-    public Date getRgstDate() {
-	return rgstDate;
-    }
+	public Date getRgstDate() {
+		return rgstDate;
+	}
 
-    public void setRgstDate(Date rgstDate) {
-	this.rgstDate = rgstDate;
-    }
+	public void setRgstDate(Date rgstDate) {
+		this.rgstDate = rgstDate;
+	}
 
-    public Date getUpdateDate() {
-	return updateDate;
-    }
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-	this.updateDate = updateDate;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
-    public boolean isLeaf() {
-	return leaf;
-    }
+	public boolean isLeaf() {
+		return leaf;
+	}
 
-    public void setLeaf(boolean leaf) {
-	this.leaf = leaf;
-    }
+	public void setLeaf(boolean leaf) {
+		this.leaf = leaf;
+	}
 
-    public Long getSort() {
-	return sort;
-    }
+	public Long getSort() {
+		return sort;
+	}
 
-    public void setSort(Long sort) {
-	this.sort = sort;
-    }
+	public void setSort(Long sort) {
+		this.sort = sort;
+	}
 }
