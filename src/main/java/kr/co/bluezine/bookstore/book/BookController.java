@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
 import kr.co.bluezine.bookstore.sql.PageEntity;
 
 /**
@@ -24,56 +25,60 @@ import kr.co.bluezine.bookstore.sql.PageEntity;
 @RequestMapping("book")
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+	@Autowired
+	private BookService bookService;
 
-    /**
-     * Get Book List
-     * 
-     * @param page
-     * @param count
-     * @param search
-     * @return
-     * @throws NumberFormatException
-     * @throws SQLException
-     */
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public PageEntity list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int count,
-	    @RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "id") String sort)
-	    throws NumberFormatException, SQLException {
-	return bookService.list(page, count, search, sort);
-    }
+	/**
+	 * Get Book List
+	 * 
+	 * @param page
+	 * @param count
+	 * @param search
+	 * @return
+	 * @throws NumberFormatException
+	 * @throws SQLException
+	 */
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	@ApiOperation(value = "Book List")
+	public PageEntity list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int count,
+			@RequestParam(defaultValue = "") String search, @RequestParam(defaultValue = "id") String sort)
+			throws NumberFormatException, SQLException {
+		return bookService.list(page, count, search, sort);
+	}
 
-    /**
-     * Read Book
-     * 
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "read/{id}", method = RequestMethod.GET)
-    public Book read(@PathVariable Long id) {
-	return bookService.load(id);
-    }
+	/**
+	 * Read Book
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "read/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Book Read")
+	public Book read(@PathVariable Long id) {
+		return bookService.load(id);
+	}
 
-    /**
-     * Insert Book
-     * 
-     * @param item
-     * @return
-     */
-    @RequestMapping(value = "insert", method = RequestMethod.POST)
-    public Book insert(@RequestBody Book item) {
-	return bookService.save(item);
-    }
+	/**
+	 * Insert Book
+	 * 
+	 * @param item
+	 * @return
+	 */
+	@RequestMapping(value = "insert", method = RequestMethod.POST)
+	@ApiOperation(value = "Book Insert")
+	public Book insert(@RequestBody Book item) {
+		return bookService.save(item);
+	}
 
-    /**
-     * Update Book
-     * 
-     * @param item
-     * @return
-     */
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    public Book update(@RequestBody Book item) {
-	return bookService.save(item);
-    }
+	/**
+	 * Update Book
+	 * 
+	 * @param item
+	 * @return
+	 */
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@ApiOperation(value = "Book Modify")
+	public Book update(@RequestBody Book item) {
+		return bookService.save(item);
+	}
 }
