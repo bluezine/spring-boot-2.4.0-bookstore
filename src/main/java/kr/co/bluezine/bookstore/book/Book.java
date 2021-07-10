@@ -2,12 +2,17 @@ package kr.co.bluezine.bookstore.book;
 
 import java.sql.Types;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import kr.co.bluezine.bookstore.sql.SearchParam;
 import kr.co.bluezine.bookstore.sql.SearchType;
@@ -32,9 +37,16 @@ CREATE TABLE `book` (
 	PRIMARY KEY (`id`) USING BTREE
 )
 COMMENT='book item'
-COLLATE='utf8mb4_general_ci'
-ENGINE=InnoDB
 ;
+
+CREATE TABLE `book_atch` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`title` VARCHAR(100) NOT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COMMENT='book item atachment'
+;
+
  *         </pre>
  */
 @Entity(name = "book")
@@ -104,6 +116,10 @@ public class Book extends SuperEntity {
 	 */
 	@Column(name = "description")
 	private String desc;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id")
+	private List<Book.Attachment> attachments;
 
 	public Long getId() {
 		return id;
@@ -175,5 +191,32 @@ public class Book extends SuperEntity {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public List<Book.Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<Book.Attachment> attachments) {
+		this.attachments = attachments;
+	}
+
+	@Entity(name = "book_atch")
+	public static class Attachment extends SuperEntity {
+
+		/**
+		 * Identify Key (PK)
+		 */
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Long id;
+
+		/**
+		 * Book Title
+		 */
+		@Column(name = "title")
+		private String title;
+		
+		
 	}
 }
